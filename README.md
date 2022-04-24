@@ -1,4 +1,6 @@
 # EscapeRoom
+A simple graphical game built only on python. Used package: graphics.py
+
 In order to activate a game execute main.py
 
 main.py activates play.py
