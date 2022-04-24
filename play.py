@@ -1,44 +1,22 @@
 # play.py
 # the program storytells between the rooms and also activates rooms
-import time
-from room1 import room1
-from room2 import room2
-from room3 import room3
-from room4 import room4
-from room5 import room5
-from widgets import storytell
-import time
 
-def play(win, inventory, lost):
+from rooms.room1 import room1
+from rooms.room2 import room2
+from rooms.room3 import room3
+from rooms.room4 import room4
+from rooms.room5 import room5
+
+
+def play(win, inventory):
     lost = False
     continueGame = True
-  # first room gets activated
-    continueGame, lost, inventory = room1(win, inventory)
-  # after first room is exited the below code checks for the variables
-  # and if a person lost or continueGame is False we stop the game.
-    if continueGame is False:
-        return continueGame, lost
 
-    # if the above code is passed without closing the game then here we need to activate a room2
-    continueGame, lost, inventory = room2(win, inventory)
-
-    if continueGame is False:
-        return continueGame, lost
-
-    # if the above code is passed without closing the game then here we need to activate a room3
-    continueGame, lost, inventory = room3(win, inventory)
-
-    if continueGame is False:
-        return continueGame, lost
-
-    # if the above code is passed without closing the game then here we need to activate a room4
-
-    continueGame, lost, inventory = room4(win, inventory)
-
-    if continueGame is False:
-        return continueGame, lost
-
-    continueGame, lost, inventory = room5(win, inventory)
-
+    rooms = [room1, room2, room3, room4, room5]
+    i = 0
+    while continueGame == True:
+      # first room gets activated
+      continueGame, lost, inventory = rooms[i](win, inventory)
+      i = i + 1
     return continueGame, lost
 
