@@ -3,6 +3,7 @@ from graphics import *
 from button import Button
 from dieview import DieView
 from random import randrange
+import time
 
 # The function is basically given a window, a text that needs to be displayed on top of everything (pop up) and the length (how long we want the pop up to be visible {maybe instead of sleep we could create close button but lets leave it like this for now})
 def storytell(win, text):
@@ -45,9 +46,18 @@ def storytell(win, text):
         Board.undraw()
         quit_button.deactivate()
         quit_button.undrawButton(win)
+      
+    else:
+      for i in texts:
+            i.undraw()
+        
+      Board.undraw()
+      quit_button.deactivate()
+      quit_button.undrawButton(win)
+      storytell(win, text)
 
 
-def test_code(win, display):
+def test_code(win, display, answer):
     Board = Rectangle(Point(2, 2), Point(28, 18))
     Board.setOutline("Black")
     Board.setWidth(2)
@@ -57,7 +67,7 @@ def test_code(win, display):
     display = Text(Point(15.0, 12.0), display)
     display.draw(win)
 
-    textEntry = Entry(Point(15.0, 6.0), 3)
+    textEntry = Entry(Point(15.0, 6.0), 6)
     textEntry.draw(win)
 
     # click the mouse to signal done entering text or quitting
@@ -71,8 +81,9 @@ def test_code(win, display):
         text = textEntry.getText()
         testText = Text(Point(15, 6), text)
         testText.draw(win)
-        if text == "12":
-            storytell(win, "Correct! Now use the item in this room to go to next room.")
+        if text == answer:
+            textEntry.undraw()
+            storytell(win, "Correct!")
             Board.undraw()
             testText.undraw()
             enter.undrawButton(win)
@@ -83,6 +94,7 @@ def test_code(win, display):
             textEntry.undraw()
             return True
         else:
+            textEntry.undraw()
             storytell(win, "Wrong. But you can try again.")
             Board.undraw()
             testText.undraw()
@@ -91,7 +103,7 @@ def test_code(win, display):
             quit_button.deactivate()
             quit_button.undrawButton(win)
             display.undraw()
-            textEntry.undraw()
+            
             return False
 
     if quit_button.clicked(pt):
@@ -104,6 +116,15 @@ def test_code(win, display):
         textEntry.undraw()
         return False
 
+    else:
+      Board.undraw()
+      enter.undrawButton(win)
+      enter.deactivate()
+      quit_button.deactivate()
+      quit_button.undrawButton(win)
+      display.undraw()
+      textEntry.undraw()
+      
 
 def test_dice(win):
     Board = Rectangle(Point(2, 2), Point(28, 18))
@@ -113,6 +134,7 @@ def test_dice(win):
     Board.draw(win)
 
     display = Text(Point(15.0, 15), "Roll the same dice")
+    display.draw(win)
     die1 = DieView(win, Point(12, 12), 2)
     die2 = DieView(win, Point(18, 12), 2)
     rollButton = Button(win, Point(15, 8), 2, 1, "Roll")
@@ -126,9 +148,9 @@ def test_dice(win):
             value2 = randrange(1, 7)
             die2.setValue(value2)
             if value2 == value1:
+                time.sleep(1)
                 Board.undraw()
+                display.undraw()
                 rollButton.undrawButton(win)
                 return True
         pt = win.getMouse()
-
-
