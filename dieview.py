@@ -1,4 +1,5 @@
 # dieview.py
+# creates class of dice that are used visually
 from graphics import *
 
 
