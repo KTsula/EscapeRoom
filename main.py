@@ -17,8 +17,8 @@ def clear(win):
         item.undraw()
     win.update()
 
-
 def main():
+  
     # if continueGame becomes False, we terminate a game and check the variable lost
     continueGame = True
     # if lost is True then we show a person that he lost
@@ -35,13 +35,12 @@ def main():
 
     #starting timer
     startTime = time.time()
-
-
+    
     # The main function that keeps the game going
     while continueGame == True:
         # play is a function defined in play.py
         # play returns continueGame and lost variables in case something changes in them
-        continueGame, lost = play(win, inventory, lost)
+      continueGame, lost = play(win, inventory)
 
 
     endTime = time.time()
@@ -50,7 +49,7 @@ def main():
     if lost:
         storytell(win, "you needed {} seconds to finish the game and you lost".format(round(timepassed)))
     else:
-        storytell(win, "you needed {} seconds to finish the game and you won".format(round(timepassed)))
+        storytell(win, "you needed {} seconds to finish the game and you won!".format(round(timepassed)))
 
     win.close()
 
